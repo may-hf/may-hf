@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ja">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,37 +11,19 @@
   <div class="container">
     <header>
       <div class="brand">Your Name</div>
-
-      <div class="header-right">
-        <nav>
-          <a href="works.html" data-i18n="works">Works</a>
-          <a href="about.html" data-i18n="about">About</a>
-          <a href="https://yourshop.base.shop" target="_blank" rel="noopener" data-i18n="shop">Shop</a>
-        </nav>
-
-        <!-- Language toggle -->
-        <div class="lang-switch" role="group" aria-label="Language switch">
-          <button type="button" class="lang-btn" data-lang="ja" aria-pressed="true">日本語</button>
-          <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
-        </div>
-      </div>
+      <nav>
+        <a href="works.html">Works</a>
+        <a href="about.html">About</a>
+        <a href="https://yourshop.base.shop" target="_blank" rel="noopener">Shop</a>
+      </nav>
     </header>
 
-    <!-- JA -->
-    <section class="hero" data-lang="ja">
-      <h1>迷路アーティスト</h1>
-      <p>ここに日本語の短い作家ステートメント。作品紹介とショップへの導線だけをシンプルに。</p>
-      <a class="button" href="https://yourshop.base.shop" target="_blank" rel="noopener">ショップを見る</a>
-    </section>
-
-    <!-- EN -->
-    <section class="hero" data-lang="en" hidden>
+    <section class="hero">
       <h1>Maze Artist</h1>
-      <p>Short artist statement in English. Keep it minimal and let the works speak.</p>
+      <p>Short artist statement goes here. (You can write in English.)</p>
       <a class="button" href="https://yourshop.base.shop" target="_blank" rel="noopener">Visit Shop</a>
     </section>
 
-    <!-- Gallery (共通でOK：キャプションだけ分けたいなら data-lang で2本作る) -->
     <section class="grid">
       <div class="card">
         <img src="images/work1.jpg" alt="Work 1">
@@ -63,48 +45,5 @@
       © Your Name
     </footer>
   </div>
-
-  <script>
-    (function () {
-      const STORAGE_KEY = "site_lang";
-      const buttons = document.querySelectorAll(".lang-btn");
-      const sections = document.querySelectorAll("[data-lang]");
-
-      function setLang(lang) {
-        // show/hide sections
-        sections.forEach(sec => {
-          const isTarget = sec.getAttribute("data-lang") === lang;
-          if (isTarget) sec.removeAttribute("hidden");
-          else sec.setAttribute("hidden", "");
-        });
-
-        // update html lang attribute
-        document.documentElement.lang = lang === "ja" ? "ja" : "en";
-
-        // update button state
-        buttons.forEach(btn => {
-          const pressed = btn.getAttribute("data-lang") === lang;
-          btn.setAttribute("aria-pressed", pressed ? "true" : "false");
-        });
-
-        // remember
-        try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {}
-      }
-
-      // default = Japanese, but load saved choice if exists
-      let initial = "ja";
-      try {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        if (saved === "ja" || saved === "en") initial = saved;
-      } catch (e) {}
-      setLang(initial);
-
-      // click handlers
-      buttons.forEach(btn => {
-        btn.addEventListener("click", () => setLang(btn.getAttribute("data-lang")));
-      });
-    })();
-  </script>
 </body>
 </html>
-
